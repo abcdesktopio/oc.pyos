@@ -10,3 +10,9 @@ oc.pyos depend pyos submodule in /var directory
 	path = var/pyos
 	url = https://github.com/abcdesktopio/pyos
 ```
+
+## To build the Docker container oc.pyos image
+```
+docker build  -t abcdesktopoio/oc.pyos -f oc.pyos .
+```
+
