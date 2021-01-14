@@ -13,7 +13,12 @@ oc.pyos depend pyos submodule in /var directory
 ```
 
 ## To build the Docker container oc.pyos image
+
+* oc.pyos is the docker container for pyos.
+* pyos is a git submodule in oc.pyos, git clone must add the --recurse-submodules option
+
 ```
+git clone --recurse-submodules https://github.com/abcdesktopio/oc.pyos.git
 docker build  -t abcdesktopoio/oc.pyos -f oc.pyos .
 ```
 
