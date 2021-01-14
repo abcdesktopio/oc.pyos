@@ -8,7 +8,8 @@ oc.pyos depend pyos submodule in /var directory
 ```
 [submodule "var/pyos"]
 	path = var/pyos
-	url = https://github.com/abcdesktopio/pyos
+	url = https://github.com/abcdesktopio/pyos.git
+	branch = main
 ```
 
 ## To build the Docker container oc.pyos image
