@@ -1,4 +1,3 @@
 [submodule "var/pyos"]
 	path = var/pyos
 	url = https://github.com/abcdesktopio/pyos.git
-	branch = main
