@@ -1,16 +1,32 @@
-NOCACHE := "false"
+# Software Name : abcdesktop.io
+# Version: 0.2
+# SPDX-FileCopyrightText: Copyright (c) 2020-2021 Orange
+# SPDX-License-Identifier: GPL-2.0-only
+#
+# This software is distributed under the GNU General Public License v2.0 only
+# see the "license.txt" file for more details.
+#
+# Author: abcdesktop.io team
+# Software description: cloud native desktop service
+#
 
-ifdef $$NOCACHE
-  NOCACHE := $$NOCACHE
+##
+# define a tag to build docker registry image
+# the default tag is dev
+# usage
+# TAG=dev make
+# TAG=latest make
+#
+
+ifndef TAG
+ TAG=dev
 endif
-
 
 all: pyos
 
 pyos:
 	make -C var/pyos
-	docker build --no-cache -t oc.pyos -f oc.pyos .
-	docker tag oc.pyos abcdesktop/oio:oc.pyos
+	docker build --build-arg TAG=$(TAG) --no-cache -t abcdesktopio/oc.pyos:$(TAG) -f oc.pyos .
 
 push: 
-	docker push abcdesktop/oio:oc.pyos
+	docker push abcdesktopio/oc.pyos:$(TAG)
