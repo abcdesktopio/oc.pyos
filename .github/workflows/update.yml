@@ -38,4 +38,4 @@ jobs:
           file: oc.pyos
           push: true
           tags: |
-            abcdesktopio/oc.pyos:latest
+            abcdesktopio/oc.pyos:dev
