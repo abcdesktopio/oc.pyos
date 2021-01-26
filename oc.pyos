@@ -73,11 +73,19 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 # install pip 
 RUN     pip3 install --upgrade pip
 
+COPY    .git /.git
 COPY    var/pyos /var/pyos
 
 # install python dep
 RUN     cd var/pyos && pip3 install -r requirements.txt --upgrade 
-RUN     cd var/pyos && ./mkversion.sh 
+
+# install git for versionning
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y git \
+	&& cd var/pyos \
+	&& ./mkversion.sh \
+	&& apt-get -y remove git \
+	&& apt-get -y purge git
+
 RUN 	cp /var/pyos/od.config.reference /var/pyos/od.config
 COPY 	config.payload.default/ /config.payload.default
 COPY 	config.signing.default/ /config.signing.default
