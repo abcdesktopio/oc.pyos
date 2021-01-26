@@ -77,7 +77,7 @@ COPY    var/pyos /var/pyos
 
 # install python dep
 RUN     cd var/pyos && pip3 install -r requirements.txt --upgrade 
-RUN     cd var/pyos && mkversion.sh 
+RUN     cd var/pyos && ./mkversion.sh 
 RUN 	cp /var/pyos/od.config.reference /var/pyos/od.config
 COPY 	config.payload.default/ /config.payload.default
 COPY 	config.signing.default/ /config.signing.default
