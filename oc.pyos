@@ -28,8 +28,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	wget			
 
 
-# ADD debug for docker cli
-#
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     apt-transport-https \
     ca-certificates \
@@ -42,7 +40,11 @@ RUN add-apt-repository \
    $(lsb_release -cs) \
    stable"
 
-RUN apt-get update && apt-get install -y docker-ce-cli 
+# ADD debug for docker cli
+# ADD debug telnet client
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
+    docker-ce-cli \
+    telnet
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	libffi-dev		\
