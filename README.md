@@ -1,7 +1,10 @@
 # oc.pyos
-abcdesktop.io pyos API service
-![Docker Stars](https://img.shields.io/docker/stars/abcdesktopio/oc.pyos.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/abcdesktopio/oc.pyos.svg)
 
+![Update oc.pyos](https://github.com/abcdesktopio/oc.pyos/workflows/Update%20oc.pyos/badge.svg)
+![Docker Stars](https://img.shields.io/docker/stars/abcdesktopio/oc.pyos.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/abcdesktopio/oc.pyos.svg)
+
+## abcdesktop.io pyos API service
 
 Docker container to build the oc.pyos image
 
