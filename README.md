@@ -4,7 +4,14 @@
 ![Docker Stars](https://img.shields.io/docker/stars/abcdesktopio/oc.pyos.svg)
 ![Docker Pulls](https://img.shields.io/docker/pulls/abcdesktopio/oc.pyos.svg)
 
-## abcdesktop.io pyos API service
+
+## To get more informations
+
+Please, read the public documentation web site:
+* [https://www.abcdesktop.io](https://www.abcdesktop.io)
+* [https://abcdesktopio.github.io/](https://abcdesktopio.github.io/)
+
+## abcdesktop.io pyos API service, control plane
 
 Docker container to build the oc.pyos image
 
