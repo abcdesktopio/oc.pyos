@@ -3,6 +3,7 @@
 ![Update oc.pyos](https://github.com/abcdesktopio/oc.pyos/workflows/Update%20oc.pyos/badge.svg)
 ![Docker Stars](https://img.shields.io/docker/stars/abcdesktopio/oc.pyos.svg)
 ![Docker Pulls](https://img.shields.io/docker/pulls/abcdesktopio/oc.pyos.svg)
+![GNU GPL v2.0 License](https://img.shields.io/github/license/abcdesktopio/oc.pyos.svg)
 
 
 ## To get more informations
