@@ -46,12 +46,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
     docker-ce-cli \
     telnet
 
+# need libssl-dev,rustc for rsa>=4.1
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	libffi-dev		\
 	python3-dev 		\
 	libldap2-dev 		\
 	libsasl2-dev 		\
-	libssl-dev
+	libssl-dev		\
+	rustc
 
 
 # libnss-ldap
