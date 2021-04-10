@@ -93,7 +93,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y git \
 		gcc 				\
 		rustc 				\
 		binutils 			\
-	&& apt-get -y purge git
+	&& apt autoremove -y
 
 RUN 	cp /var/pyos/od.config.reference /var/pyos/od.config
 COPY 	config.payload.default/ /config.payload.default
