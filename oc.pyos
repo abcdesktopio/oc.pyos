@@ -87,7 +87,12 @@ RUN     cd var/pyos && pip3 install -r requirements.txt --upgrade
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y git \
 	&& cd var/pyos \
 	&& ./mkversion.sh \
-	&& apt-get -y remove git \
+	&& apt-get -y remove \
+		git 				\
+		build-essential 		\
+		gcc 				\
+		rustc 				\
+		binutils 			\
 	&& apt-get -y purge git
 
 RUN 	cp /var/pyos/od.config.reference /var/pyos/od.config
