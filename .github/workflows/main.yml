@@ -14,11 +14,12 @@ jobs:
     # runs-on: self-hosted
 
     steps:
-      - name: Clone sources
-        run: |
-          rm -rf ..?* .[!.]* *
-          git -c http.extraheader="Authorization: basic ${{ secrets.TOKEN }}" clone "https://github.com/abcdesktopio/oc.pyos.git" .
-          git -c http.extraheader="Authorization: basic ${{ secrets.TOKEN }}" submodule update --init --recursive --remote
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive --remote
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
