@@ -15,6 +15,7 @@ RUN apt-get install -y \
         python3-dnspython	\
 	python3-crypto		\
 	python3-dnspython	\
+	python3-ldap3		\
 	python3-geoip		\
 	python3-pymongo 	\
  	python3-memcache        \
