@@ -1,6 +1,30 @@
-FROM ubuntu:18.04
+# defaul TAG is dev
+ARG TAG=dev
+# Default release is 18.04
+ARG BASE_IMAGE_RELEASE=18.04
+# Default base image 
+ARG BASE_IMAGE=ubuntu
+
+# --- BEGIN builder ---
+FROM $BASE_IMAGE:$TAG as builder
 ENV DEBIAN_FRONTEND noninteractive
 
+# copy source python code of pyos
+COPY    var/pyos /var/pyos
+
+# install git for versionning
+# get version.json file using mkversion.sh bash script
+RUN  apt-get update && apt-get install -y --no-install-recommends \
+		git 			\
+	&& cd var/pyos 			\
+	&& ./mkversion.sh		\
+	&& cat version.json
+	
+# End of builder
+
+# Start here
+FROM $BASE_IMAGE:$TAG
+ENV DEBIAN_FRONTEND noninteractive
 # libglib2 	is used by ntlm_auth
 # samba-common 	is used for nbmlookup
 # krb5-user 	is used for kinit
@@ -69,8 +93,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
     && apt-get clean            \
     && rm -rf /var/lib/apt/lists/*
 
-
-
 # libnss-ldap
 RUN  apt-get update && apt-get install -y \
 	cntlm 			\
@@ -92,32 +114,17 @@ RUN  apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 
-# install pip 
+# upgrade pip 
 RUN     pip3 install --upgrade pip
 
 # copy source python code of pyos
-COPY    .git /.git
-# copy source python code of pyos
 COPY    var/pyos /var/pyos
 
-# install python dep
+# copy version json from builder
+COPY --from=builder /var/pyos/version.json  /var/pyos/version.json
+
+# install python dep requirements
 RUN cd var/pyos && pip3 install -r requirements.txt --upgrade 
-
-# install git for versionning
-RUN  apt-get update && apt-get install -y --no-install-recommends \
-		git \
-	&& cd var/pyos \
-	&& ./mkversion.sh \
-	&& apt-get -y remove \
-		git 				\
-		build-essential 		\
-		gcc 				\
-		rustc 				\
-		binutils 			\
-	&& apt autoremove -y			\
-	&& apt-get clean            		\
-        && rm -rf /var/lib/apt/lists/*
-
 
 RUN 	cp /var/pyos/od.config.reference /var/pyos/od.config
 COPY 	config.payload.default/ /config.payload.default
