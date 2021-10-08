@@ -1,12 +1,11 @@
-# defaul TAG is dev
-ARG TAG=dev
+
 # Default release is 18.04
 ARG BASE_IMAGE_RELEASE=18.04
 # Default base image 
 ARG BASE_IMAGE=ubuntu
 
 # --- BEGIN builder ---
-FROM $BASE_IMAGE:$TAG as builder
+FROM $BASE_IMAGE:BASE_IMAGE_RELEASE as builder
 ENV DEBIAN_FRONTEND noninteractive
 
 # copy source python code of pyos
@@ -23,7 +22,7 @@ RUN  apt-get update && apt-get install -y --no-install-recommends \
 # End of builder
 
 # Start here
-FROM $BASE_IMAGE:$TAG
+FROM $BASE_IMAGE:BASE_IMAGE_RELEASE
 ENV DEBIAN_FRONTEND noninteractive
 # libglib2 	is used by ntlm_auth
 # samba-common 	is used for nbmlookup
