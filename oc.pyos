@@ -113,6 +113,22 @@ RUN  apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 
+# for debug only
+# remove in release
+# tools for troubleshooting, but not for prod
+RUN DEBIAN_FRONTEND=noninteractive 			\
+    apt-get update      &&                              \
+    apt-get install -y  --no-install-recommends 	\
+	net-tools 	\
+	iputils-ping	\
+	netcat 		\
+	curl		\
+	dnsutils        \
+	vim		\
+    && apt-get clean	\
+    && rm -rf /var/lib/apt/lists/*
+
+
 # upgrade pip 
 RUN     pip3 install --upgrade pip
 
