@@ -41,3 +41,7 @@ jobs:
           push: true
           tags: |
             abcdesktopio/oc.pyos:dev
+            
+      - name: update platform
+        run: curl -X POST -u "${{ secrets.WEBHOOK_USERNAME }}:${{ secrets.WEBHOOK_PASSWORD }}" -d "daemonset=daemonset-pyos"  ${{ secrets.WEBHOOK_URL }}/rollout
+      
