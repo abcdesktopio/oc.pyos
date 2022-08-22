@@ -23,8 +23,8 @@ jobs:
           cd var
           git clone https://github.com/abcdesktopio/pyos
           
-      - name: dump-github
-        run: echo ${{ github }}
+      - name: dump-github-event-client_payload
+        run: echo ${{ github.event.client_payload }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
