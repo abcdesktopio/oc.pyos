@@ -24,7 +24,7 @@ jobs:
           git clone https://github.com/abcdesktopio/pyos
           
       - name: dump-github-event-client_payload
-        run: echo ${{ github.event.client_payload }}
+        run: echo ${{ github.event.client_payload.branch }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -37,6 +37,12 @@ jobs:
         with:
          username: ${{ secrets.DOCKER_USERNAME }}
          password: ${{ secrets.DOCKER_TOKEN }}
+         
+      - name: "image tag with branch if set"
+        if: ${{ github.event.client_payload.branch }}
+        run: echo "${{ github.event.client_payload.branch }}"
+        env:
+          imagetag: github.event.client_payload.branch
 
       - name: Build and push
         uses: docker/build-push-action@v2
