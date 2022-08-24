@@ -41,10 +41,10 @@ jobs:
          password: ${{ secrets.DOCKER_TOKEN }}
          
       - name: "image tag with branch if set"
-        if: ${{ github.event.client_payload }}
-        run: echo "${{ github.event.client_payload }}"
+        if: ${{ github.event.client_payload.ref }}
+        run: echo "${{ github.event.client_payload.ref }}"
         env:
-          imagetag: github.event.client_payload
+          imagetag: github.event.client_payload.ref
 
       - name: Build and push
         uses: docker/build-push-action@v2
