@@ -19,14 +19,14 @@ jobs:
         with:
           ref: main
           
+      - name: dump-github-event-client_payload
+        run: echo "current source branch is ${{ github.event.client_payload.ref || 'main' }}"
+
       - name: clone pyos main branch    
         run: |
           cd var
-          git clone https://github.com/abcdesktopio/pyos
+          git clone -b ${{ github.event.client_payload.ref || 'main' }}  https://github.com/abcdesktopio/pyos
           
-      - name: dump-github-event-client_payload
-        run: echo ${{ github.event.client_payload.branch }}
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
