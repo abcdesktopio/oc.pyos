@@ -51,7 +51,7 @@ jobs:
         with:
           platforms: linux/amd64
           context: .
-          file: oc.pyos
+          file: Dockerfile
           push: true
           tags: |
             abcdesktopio/oc.pyos:${{ env.imagetag }}
