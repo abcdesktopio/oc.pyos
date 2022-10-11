@@ -1,6 +1,6 @@
 
-# Default release is 18.04
-ARG BASE_IMAGE_RELEASE=18.04
+# Default release is 20.04
+ARG BASE_IMAGE_RELEASE=20.04
 # Default base image 
 ARG BASE_IMAGE=ubuntu
 
@@ -33,14 +33,11 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends  \
 	python3 		\
 	python3-pip		\ 
-        geoip-database-extra    \
 	python3-six		\
         python3-requests 	\
 	python3-urllib3		\
         python3-httplib2 	\
         python3-dnspython	\
-	python3-crypto		\
-	python3-dnspython	\
 	python3-geoip		\
 	python3-pymongo 	\
  	python3-memcache        \
@@ -48,6 +45,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
 	python3-kerberos	\
 	python3-setuptools	\
 	python3-gssapi		\
+	python3-dnspython	\
+	python3-jwt		\		
 	libglib2.0-0		\
 	samba-common		\
     && apt-get clean            \
@@ -132,8 +131,7 @@ COPY 	config.payload.default/ /config.payload.default
 COPY 	config.signing.default/ /config.signing.default
 # COPY    config.usersigning.default/ /config.usersigning.default
 
-RUN     mkdir -p /var/pyos/logs
-RUN 	mkdir -p /config
+RUN mkdir -p /var/pyos/logs /config
 COPY 	composer /composer
 WORKDIR /var/pyos
 CMD     ["/composer/docker-entrypoint.sh"]
