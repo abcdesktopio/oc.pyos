@@ -26,7 +26,7 @@ all: pyos
 
 pyos:
 	make -C var/pyos
-	docker build --build-arg TAG=$(TAG) --no-cache -t abcdesktopio/oc.pyos:$(TAG) -f oc.pyos .
+	docker build --build-arg TAG=$(TAG) -t abcdesktopio/oc.pyos:$(TAG) .
 
 push: 
 	docker push abcdesktopio/oc.pyos:$(TAG)
