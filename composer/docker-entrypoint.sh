@@ -30,7 +30,7 @@ if [ ! -d "/config.signing" ]; then
   echo 'SECURITY WARNING !'
   echo 'No signing key has been defined' 
   echo 'using default signing keys'
-  mv /config.signing.default /config.signing
+  cp /config.signing.default /config.signing
 else
   ls -la /config.signing
 fi
@@ -39,9 +39,9 @@ if [ ! -d "/config.payload" ]; then
   echo 'SECURITY WARNING !'
   echo 'No payload key has been defined' 
   echo 'using default payload keys'
-  mv /config.payload.default /config.payload
+  cp /config.payload.default /config.payload
 else
-  ls -la /config.signing
+  ls -la /config.payload
 fi
 
 echo "starting od.py"
