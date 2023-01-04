@@ -17,7 +17,7 @@ COPY    var/pyos/.git /var/pyos/.git
 # install git for versionning
 # get version.json file using mkversion.sh bash script
 RUN  apt-get update && apt-get install -y --no-install-recommends \
-		git 			\
+	git 				\
 	&& cd var/pyos 			\
 	&& ./mkversion.sh		\
 	&& cat version.json
@@ -37,7 +37,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
         python3-requests 	\
 	python3-urllib3		\
         python3-httplib2 	\
-        python3-dnspython	\
 	python3-geoip		\
 	python3-pymongo 	\
  	python3-memcache        \
@@ -45,7 +44,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
 	python3-kerberos	\
 	python3-setuptools	\
 	python3-gssapi		\
-	python3-dnspython	\
 	python3-jwt		\		
 	libglib2.0-0		\
 	samba-common		\
