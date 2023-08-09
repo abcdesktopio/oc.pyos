@@ -4,6 +4,9 @@ ARG BASE_IMAGE_RELEASE=20.04
 # Default base image 
 ARG BASE_IMAGE=ubuntu
 
+
+FROM abcdesktopio/ntlm_auth:$BASE_IMAGE_RELEASE as ntlm_auth
+
 # --- BEGIN builder ---
 FROM $BASE_IMAGE:$BASE_IMAGE_RELEASE as builder
 ENV DEBIAN_FRONTEND noninteractive
@@ -46,11 +49,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
 	python3-gssapi		\
 	python3-jwt		\		
 	libglib2.0-0		\
-	samba-common		\
+	samba			\
     && apt-get clean            \
     && rm -rf /var/lib/apt/lists/*
 
-
+RUN echo "/usr/lib/x86_64-linux-gnu/samba" >> /etc/ld.so.conf.d/x86_64-linux-gnu.conf
 RUN apt-get update && apt-get install -y --no-install-recommends  \
 	curl				\
     	apt-transport-https 		\
@@ -117,6 +120,11 @@ RUN     pip3 install --upgrade pip
 
 # copy source python code of pyos
 COPY    var/pyos /var/pyos
+
+
+# copy new ntlm_auth
+COPY --from=ntlm_auth  /samba/samba-4.15.13+dfsg/bin/default/source3/utils/ntlm_auth   /var/pyos/oc/auth/ntlm/ntlm_auth 
+
 
 # copy version json from builder
 COPY --from=builder /var/pyos/version.json  /var/pyos/version.json
