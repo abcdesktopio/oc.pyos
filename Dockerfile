@@ -53,7 +53,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
     && apt-get clean            \
     && rm -rf /var/lib/apt/lists/*
 
+# update ldconfig
 RUN echo "/usr/lib/x86_64-linux-gnu/samba" >> /etc/ld.so.conf.d/x86_64-linux-gnu.conf
+RUN /usr/sbin/ldconfig
+
 RUN apt-get update && apt-get install -y --no-install-recommends  \
 	curl				\
     	apt-transport-https 		\
