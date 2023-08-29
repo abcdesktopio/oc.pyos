@@ -49,7 +49,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
 	python3-gssapi		\
 	python3-jwt		\		
 	libglib2.0-0		\
-	samba			\
+	samba-common-bin	\
     && apt-get clean            \
     && rm -rf /var/lib/apt/lists/*
 
