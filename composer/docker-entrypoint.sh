@@ -44,6 +44,20 @@ else
   ls -la /config.payload
 fi
 
-echo "starting od.py"
-cd /var/pyos
-./od.py 
+
+# ABCDESKTOP_DEBUG_MODE env var is set
+if [ -z "$ABCDESKTOP_DEBUG_MODE" ]; then
+   # start pyos server 
+   echo "starting od.py"
+   cd /var/pyos
+   ./od.py 
+else
+  # do not start pyos server 
+  echo "ABCDESKTOP_DEBUG_MODE env var is set"
+  echo "to start pyos"
+  echo "kubectl exec -n abcdesktop -it daemonset/daemonset-pyos  -- bash"
+  echo "then run the command inside the container"
+  echo "cd /var/pyos && ./od.py"
+  echo "this container will sleep for a day"
+  sleep 1d
+fi
