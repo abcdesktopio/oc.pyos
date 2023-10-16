@@ -84,6 +84,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
     && apt-get clean            \
     && rm -rf /var/lib/apt/lists/*
 
+# GeoLite2
+RUN mkdir -p /usr/share/geolite2 &&
+    wget https://git.io/GeoLite2-ASN.mmdb -P /usr/share/geolite2 &&
+    wget https://git.io/GeoLite2-City.mmdb -P /usr/share/geolite2 &&
+    wget https://git.io/GeoLite2-Country.mmdb -P /usr/share/geolite2
+
 
 # need libssl-dev,rustc for rsa>=4.1
 RUN apt-get update && apt-get install -y --no-install-recommends  \
