@@ -40,14 +40,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
         python3-requests 	\
 	python3-urllib3		\
         python3-httplib2 	\
-	python3-geoip		\
+	python3-geoip2		\
 	python3-pymongo 	\
  	python3-memcache        \
 	python3-distutils	\
 	python3-kerberos	\
 	python3-setuptools	\
 	python3-gssapi		\
-	python3-jwt		\		
+	python3-jwt		\
 	libglib2.0-0		\
 	samba-common-bin	\
     && apt-get clean            \
