@@ -40,6 +40,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
         python3-requests 	\
 	python3-urllib3		\
         python3-httplib2 	\
+	python3-geoip		\		
 	python3-geoip2		\
 	python3-pymongo 	\
  	python3-memcache        \
@@ -87,9 +88,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
 # GeoLite2
 RUN mkdir -p /usr/share/geolite2 &&
     wget https://git.io/GeoLite2-ASN.mmdb -P /usr/share/geolite2 &&
-    wget https://git.io/GeoLite2-City.mmdb -P /usr/share/geolite2 &&
-    wget https://git.io/GeoLite2-Country.mmdb -P /usr/share/geolite2
-
+    wget https://git.io/GeoLite2-City.mmdb -P /usr/share/geolite2
 
 # need libssl-dev,rustc for rsa>=4.1
 RUN apt-get update && apt-get install -y --no-install-recommends  \
