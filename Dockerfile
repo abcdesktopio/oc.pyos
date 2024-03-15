@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # copy source python code of pyos
 COPY    .git /.git
 COPY    var/pyos /var/pyos
-COPY    var/pyos/.git /var/pyos/.git
+COPY    var/pyos/.git /var/pyos/.git/
 
 
 # install git for versionning
