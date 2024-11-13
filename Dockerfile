@@ -64,14 +64,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
     && apt-get clean            	\
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-# ADD debug for docker cli
 # ADD debug telnet client
 RUN apt-get update && apt-get install -y --no-install-recommends  \
-    	docker-ce-cli 		\
     	telnet	  		\
     	wget			\
     	netcat			\
@@ -126,18 +120,17 @@ RUN     pip3 install --upgrade pip
 # copy source python code of pyos
 COPY    var/pyos /var/pyos
 
-
 # copy new ntlm_auth
 COPY --from=ntlm_auth  /samba/samba-4.15.13+dfsg/bin/default/source3/utils/ntlm_auth   /var/pyos/oc/auth/ntlm/ntlm_auth 
-
 
 # copy version json from builder
 COPY --from=builder /var/pyos/version.json  /var/pyos/version.json
 
 # install python dep requirements
-RUN cd var/pyos && pip3 install -r requirements.txt --upgrade 
+RUN cd var/pyos && \
+    cat requirements.txt && \
+    pip3 install -r requirements.txt --upgrade 
 
-RUN 	cp /var/pyos/od.config.reference /var/pyos/od.config
 COPY 	config.payload.default/ /config.payload.default
 COPY 	config.signing.default/ /config.signing.default
 # COPY    config.usersigning.default/ /config.usersigning.default
