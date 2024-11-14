@@ -8,6 +8,7 @@ on:
       - main
 env:
     imagetag: "${{ github.event.client_payload.ref || github.ref_name }}"
+    branch: "${{ github.event.client_payload.ref || dev }}"
     
 jobs:
   # Run tests.
@@ -20,15 +21,15 @@ jobs:
     steps:   
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ env.imagetag }}
           
       - name: dump-github-event-client_payload
-        run: echo "current source branch is ${{ github.event.client_payload.ref || 'main' }}"
+        run: echo "current source branch is ${{ env.imagetag }}"
 
       - name: clone pyos main branch    
         run: |
           cd var
-          git clone -b ${{ github.event.client_payload.ref || 'main' }}  https://github.com/abcdesktopio/pyos
+          git clone -b ${{ env.branch }}  https://github.com/abcdesktopio/pyos
           
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -52,6 +53,8 @@ jobs:
           context: .
           file: Dockerfile
           push: true
+          build-args: |
+            branch:${{ env.branch }}
           tags: |
             abcdesktopio/oc.pyos:${{ env.imagetag }}
             
