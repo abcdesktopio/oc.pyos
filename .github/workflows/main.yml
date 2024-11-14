@@ -25,11 +25,6 @@ jobs:
           
       - name: dump-github-event-client_payload
         run: echo "current source branch is ${{ env.imagetag }}"
-
-      - name: clone pyos main branch    
-        run: |
-          cd var
-          git clone -b ${{ env.branch }}  https://github.com/abcdesktopio/pyos
           
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
