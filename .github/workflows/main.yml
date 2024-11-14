@@ -8,7 +8,7 @@ on:
       - main
 env:
     imagetag: "${{ github.event.client_payload.ref || github.ref_name }}"
-    branch: "${{ github.event.client_payload.ref || dev }}"
+    branch: "${{ github.event.client_payload.ref || 'dev' }}"
     
 jobs:
   # Run tests.
