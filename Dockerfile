@@ -32,6 +32,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # krb5-user 	is used for kinit
 RUN apt-get update && apt-get install -y --no-install-recommends  \
 	python3 		\
+ 	python3-crypto		\ 
 	python3-pip		\ 
 	python3-six		\
         python3-requests 	\
