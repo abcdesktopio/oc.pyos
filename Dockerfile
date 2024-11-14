@@ -1,26 +1,27 @@
-
 # Default release is 20.04
 ARG BASE_IMAGE_RELEASE=20.04
 # Default base image 
 ARG BASE_IMAGE=ubuntu
-
+# BRANCH
+ARG BRANCH=dev
 
 FROM abcdesktopio/ntlm_auth:$BASE_IMAGE_RELEASE as ntlm_auth
 
 # --- BEGIN builder ---
 FROM $BASE_IMAGE:$BASE_IMAGE_RELEASE as builder
-ENV DEBIAN_FRONTEND noninteractive
-
-# copy source python code of pyos
-ADD --keep-git-dir var/pyos /var/pyos
+ARG BRANCH
+ENV DEBIAN_FRONTEND=noninteractive
+ENV BRANCH=${BRANCH}
+RUN echo current branch is ${BRANCH}
 
 # install git for versionning
 # get version.json file using mkversion.sh bash script
 RUN  apt-get update && apt-get install -y --no-install-recommends \
-	git 				\
-	&& cd var/pyos 			\
-	&& ./mkversion.sh		\
-	&& cat version.json
+	git \
+	ca-certificates 				
+
+RUN cd /var && git clone -b ${BRANCH} https://github.com/abcdesktopio/pyos.git 
+RUN cd /var/pyos && ./mkversion.sh && cat version.json
 	
 # End of builder
 
@@ -65,7 +66,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
     && apt-get clean            	\
     && rm -rf /var/lib/apt/lists/*
 
-# ADD debug telnet client
+# ADD debug tools like telnet netcat dnsutils...
 RUN apt-get update && apt-get install -y --no-install-recommends  \
     	telnet	  		\
     	wget			\
@@ -114,21 +115,14 @@ RUN  apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 
-
-# upgrade pip 
-RUN     pip3 install --upgrade pip
-
 # copy source python code of pyos
-COPY    var/pyos /var/pyos
+COPY --from=builder var/pyos /var/pyos
 
 # copy new ntlm_auth
 COPY --from=ntlm_auth  /samba/samba-4.15.13+dfsg/bin/default/source3/utils/ntlm_auth   /var/pyos/oc/auth/ntlm/ntlm_auth 
 
-# copy version json from builder
-COPY --from=builder /var/pyos/version.json  /var/pyos/version.json
-
 # install python dep requirements
-RUN cd var/pyos && \
+RUN cd /var/pyos && \
     cat requirements.txt && \
     pip3 install -r requirements.txt --upgrade 
 
