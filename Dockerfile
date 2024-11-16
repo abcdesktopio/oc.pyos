@@ -126,12 +126,14 @@ RUN cd /var/pyos && \
     cat requirements.txt && \
     pip3 install -r requirements.txt --upgrade 
 
-COPY 	config.payload.default/ /config.payload.default
-COPY 	config.signing.default/ /config.signing.default
-# COPY    config.usersigning.default/ /config.usersigning.default
+# pem files will be overwrite by kubernetes volumes  
+# keep it only for self tests
+COPY 	config.payload/ /config.payload
+COPY 	config.signing/ /config.signing
+COPY    config.usersigning/ /config.usersigning
 
 RUN mkdir -p /var/pyos/logs /config
 COPY 	composer /composer
 WORKDIR /var/pyos
-CMD     ["/composer/docker-entrypoint.sh"]
+CMD     ["/var/pyos/od.py"]
 EXPOSE 8000
