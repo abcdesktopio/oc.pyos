@@ -17,6 +17,7 @@ RUN echo current branch is ${BRANCH}
 # install git for versionning
 # get version.json file using mkversion.sh bash script
 RUN  apt-get update && apt-get install -y --no-install-recommends \
+	curl \
 	git \
 	ca-certificates 				
 
