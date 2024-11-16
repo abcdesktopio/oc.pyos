@@ -22,7 +22,7 @@ RUN  apt-get update && apt-get install -y --no-install-recommends \
 
 RUN cd /var && git clone -b ${BRANCH} https://github.com/abcdesktopio/pyos.git 
 RUN cd /var/pyos && ./mkversion.sh && cat version.json
-	
+RUN curl --output /var/pyos/od.config  "https://raw.githubusercontent.com/abcdesktopio/conf/refs/heads/main/reference/od.config.${BRANCH}"
 # End of builder
 
 # Start here
