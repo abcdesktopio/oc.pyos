@@ -5,10 +5,10 @@ ARG BASE_IMAGE=ubuntu
 # BRANCH
 ARG BRANCH=dev
 
-FROM abcdesktopio/ntlm_auth:$BASE_IMAGE_RELEASE as ntlm_auth
+FROM abcdesktopio/ntlm_auth:$BASE_IMAGE_RELEASE AS ntlm_auth
 
 # --- BEGIN builder ---
-FROM $BASE_IMAGE:$BASE_IMAGE_RELEASE as builder
+FROM $BASE_IMAGE:$BASE_IMAGE_RELEASE AS builder
 ARG BRANCH
 ENV DEBIAN_FRONTEND=noninteractive
 ENV BRANCH=${BRANCH}
@@ -28,7 +28,7 @@ RUN curl --output /var/pyos/od.config  "https://raw.githubusercontent.com/abcdes
 
 # Start here
 FROM $BASE_IMAGE:$BASE_IMAGE_RELEASE
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 # libglib2 	is used by ntlm_auth
 # samba-common 	is used for nbmlookup
 # krb5-user 	is used for kinit
