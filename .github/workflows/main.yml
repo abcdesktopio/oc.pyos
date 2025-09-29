@@ -48,7 +48,7 @@ jobs:
           file: Dockerfile
           push: true
           build-args: |
-            branch:${{ env.branch }}
+            BRANCH:${{ env.branch }}
           tags: |
             ghcr.io/abcdesktopio/oc.pyos:${{ env.imagetag }}
             
