@@ -91,6 +91,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
 	libldap2-dev 		\
 	libsasl2-dev 		\
 	libssl-dev		\
+	libkrb5-dev 		\
 	rustc			\
     && apt-get clean            \
     && rm -rf /var/lib/apt/lists/*
