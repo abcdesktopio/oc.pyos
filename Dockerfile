@@ -11,7 +11,7 @@ FROM abcdesktopio/ntlm_auth:$BASE_IMAGE_RELEASE AS ntlm_auth
 FROM $BASE_IMAGE:$BASE_IMAGE_RELEASE AS builder
 ARG BRANCH
 ENV DEBIAN_FRONTEND=noninteractive
-ENV BRANCH=${BRANCH}
+ENV BRANCH=3.4.1
 RUN echo current branch is ${BRANCH}
 
 # install git for versionning
